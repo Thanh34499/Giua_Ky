@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My NV List</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<style>
+.container_swap{
+width: 1020px;
+}
+.div_left{
+width: 850px;
+float: left;
+text-align: right;
+}
+.div_right{
+width: 130px;
+float: right;
+text-align: right;
+
+background-color:green;
+}
+
+</style>
+<div class="container_swap">
+    <div class="div_left">
+        <h5>THÔNG TIN NHÂN VIÊN</h5>
+    </div>
+    <div class="div_right">
+        <form>
+        <button class="nav-link" href="/Nhanvien/add"><h6>Thêm Nhân Viên</h6></button></form>
+    </div>
+</div>
+
+
+
+</div>
+<div class="container">
+    <h1 th:text=${title}></h1>
+    <table class="table">
+        <tr>
+            <th>Mã Nhân Viên</th>
+            <th>Tên Nhân Viên</th>
+            <th>Giới Tính</th>
+            <th>Nơi Sinh</th>
+            <th>Tên Phòng</th>
+            <th>Lương</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="Nhanvien : ${nvs}">
+            <td th:text="${Nhanvien.id}"></td>
+            <td th:text="${Nhanvien.name}"></td>
+            <td th:text="${Nhanvien.phai}"></td>
+            <td th:text="${Nhanvien.que}"></td>
+            <td th:text="${Nhanvien.phongBan.name}"></td>
+            <td th:text="${Nhanvien.luong}"></td>
+            <td>
+                <a th:href="@{/Nhanvien/edit/{id}(id=${Nhanvien.id})}">Edit</a>
+                <form th:action="@{/Nhanvien/delete/{id}(id=${Nhanvien.id})}" method="post" onsubmit="return confirm('Are you sure?')">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
